@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Wave : MonoBehaviour
 {
     [SerializeField] private int waveCount = 0;
+    public int WaveCount => waveCount;
     [SerializeField] private int enemyAmout = 5;
     [SerializeField] private float delay = 0.5f;
     [SerializeField] private int creepAmout = 2;
@@ -71,6 +72,7 @@ public class Wave : MonoBehaviour
             case 3: pos = new Vector2(w, Random.Range(-h, h)); break;
         }
 
-        Instantiate(prefab, pos, Quaternion.identity);
+        GameObject mon = Instantiate(prefab, pos, Quaternion.identity);
+        mon.GetComponent<Enemy>().ScaleByWave(waveCount);
     }
 }

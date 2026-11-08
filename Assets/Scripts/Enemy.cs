@@ -8,6 +8,9 @@ public class Enemy : Character
     [SerializeField] private int scoreValue = 10;
     [SerializeField] private float attackCooldown = 1f;
 
+    [SerializeField] private int hpPerWave = 5;        // HP เพิ่มต่อ wave
+    [SerializeField] private int wavesPerDamage = 2;   // ทุกกี่ wave ดาเมจ +1
+
     private Transform target;
     private float attackTimer;
 
@@ -40,6 +43,14 @@ public class Enemy : Character
     {
         if (col.gameObject.CompareTag("Player"))
             Attack();
+    }
+
+    public void ScaleByWave(int wave)
+    {
+        int bonus = wave - 1;                  // wave 1 = ค่าปกติ ไม่เพิ่ม
+        MaxHP += bonus * hpPerWave;
+        currentHP = MaxHP;                     // เติมเลือดให้เต็มตาม MaxHP ใหม่
+        damage += wavesPerDamage;    
     }
 
     public void DropItem()

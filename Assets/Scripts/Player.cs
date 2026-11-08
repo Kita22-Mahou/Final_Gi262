@@ -6,10 +6,17 @@ public class Player : Character
     [SerializeField] private float attackSpeed = 1f;
     [SerializeField] private int score;
     [SerializeField] private GameObject bulletPrefab;
+    private Rigidbody2D rb;
 
     private Vector2 moveDir;
     private Vector2 lastDir = Vector2.right;
     private float shootTimer;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        rb = GetComponent<Rigidbody2D>();
+    }
 
     void Update()
     {
@@ -24,16 +31,19 @@ public class Player : Character
         }
     }
 
+    void FixedUpdate()
+    {
+        rb.linearVelocity = moveDir * speed;
+    }
+
     public void Movement()
     {
-        float x = Input.GetAxisRaw("Horizontal");   
-        float y = Input.GetAxisRaw("Vertical");    
+        float x = Input.GetAxisRaw("Horizontal");
+        float y = Input.GetAxisRaw("Vertical");
         moveDir = new Vector2(x, y).normalized;
 
         if (moveDir != Vector2.zero)
             lastDir = moveDir;
-
-        transform.Translate(moveDir * speed * Time.deltaTime);
     }
 
     public void Shoot()
