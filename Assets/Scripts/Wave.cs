@@ -51,7 +51,7 @@ public class Wave : MonoBehaviour
 
             // 4) เตรียม wave ต่อไป
             enemyAmout += creepAmout;
-            yield return new WaitForSeconds(2f);   // พักหายใจ
+            yield return new WaitForSeconds(2f);
         }
     }
 
