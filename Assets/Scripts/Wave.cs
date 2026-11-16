@@ -19,6 +19,8 @@ public class Wave : MonoBehaviour
 
     private Queue<GameObject> spawnQueue = new Queue<GameObject>();
 
+    [SerializeField] public bool isWaveStopped;
+
     void Start()
     {
         StartCoroutine(WaveLoop());
@@ -41,6 +43,7 @@ public class Wave : MonoBehaviour
             // 2) ปล่อยออกจากคิวทีละตัว
             while (spawnQueue.Count > 0)
             {
+                isWaveStopped = false;
                 RandomSpawn();
                 yield return new WaitForSeconds(delay);
             }
@@ -50,6 +53,7 @@ public class Wave : MonoBehaviour
                 yield return null;
 
             // 4) เตรียม wave ต่อไป
+            isWaveStopped = true;
             enemyAmout += creepAmout;
             yield return new WaitForSeconds(2f);
         }

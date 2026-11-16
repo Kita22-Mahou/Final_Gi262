@@ -3,7 +3,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Vector2 dir;
-    private int dmg;
+    [SerializeField] private int dmg;
+    [SerializeField] private float bulletSpeed = 1;
     private Player owner;
 
     public void Init(Vector2 direction, int damage, Player p)
@@ -16,7 +17,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(dir * 10f * Time.deltaTime);
+        transform.Translate(dir * bulletSpeed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D col)
