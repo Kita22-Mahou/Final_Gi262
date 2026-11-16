@@ -139,8 +139,10 @@ MonoBehaviour:
   currentHP: 0
   MaxHP: 1
   enemyName: Dog
-  items: 
-  itemPrefabs: []
+  items: 0a0000001400000046000000
+  itemPrefabs:
+  - {fileID: 5285302652222340907, guid: b8f6e670c176d30449f962a9346d4203, type: 3}
+  - {fileID: 3866336109986176814, guid: 00c8e7a40fd98254a97ad735909cd370, type: 3}
   scoreValue: 10
   attackCooldown: 1
   hpPerWave: 5

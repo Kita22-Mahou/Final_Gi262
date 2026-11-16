@@ -32,22 +32,22 @@ public class EnemyManager : MonoBehaviour
         return nearest;
     }
 
-    // Selection Sort แบบหยุดก่อน: ได้ HP ต่ำสุด 'count' ตัว
-    public List<Enemy> GetLowestHP(int count)
-    {
-        Enemy[] arr = enemies.ToArray();           // copy เพื่อไม่ให้ลำดับ List จริงเปลี่ยน
-        count = Mathf.Min(count, arr.Length);
+    //// Selection Sort แบบหยุดก่อน: ได้ HP ต่ำสุด 'count' ตัว
+    //public List<Enemy> GetLowestHP(int count)
+    //{
+    //    Enemy[] arr = enemies.ToArray();           // copy เพื่อไม่ให้ลำดับ List จริงเปลี่ยน
+    //    count = Mathf.Min(count, arr.Length);
 
-        for (int i = 0; i < count; i++)            // รอบนอกวนแค่ count รอบ ไม่ใช่ n-1
-        {
-            int minIndex = i;
-            for (int j = i + 1; j < arr.Length; j++)
-            {
-                if (arr[j].CurrentHP < arr[minIndex].CurrentHP)
-                    minIndex = j;
-            }
-            (arr[i], arr[minIndex]) = (arr[minIndex], arr[i]);
-        }
-        return new List<Enemy>(arr).GetRange(0, count);
-    }
+    //    for (int i = 0; i < count; i++)            // รอบนอกวนแค่ count รอบ ไม่ใช่ n-1
+    //    {
+    //        int minIndex = i;
+    //        for (int j = i + 1; j < arr.Length; j++)
+    //        {
+    //            if (arr[j].CurrentHP < arr[minIndex].CurrentHP)
+    //                minIndex = j;
+    //        }
+    //        (arr[i], arr[minIndex]) = (arr[minIndex], arr[i]);
+    //    }
+    //    return new List<Enemy>(arr).GetRange(0, count);
+    //}
 }

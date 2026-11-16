@@ -55,9 +55,19 @@ public class Enemy : Character
 
     public void DropItem()
     {
-        if (items.Length == 0) return;
-        int idx = items[Random.Range(0, items.Length)];
-        Instantiate(itemPrefabs[idx], transform.position, Quaternion.identity);
+        int roll = Random.Range(0, 100);
+        int count = Mathf.Min(items.Length, itemPrefabs.Length);
+        int cumulative = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            cumulative += items[i];                            
+            if (roll < cumulative)
+            {
+                Instantiate(itemPrefabs[i], transform.position, Quaternion.identity);
+                return;
+            }
+        }
     }
 
     protected override void Die()

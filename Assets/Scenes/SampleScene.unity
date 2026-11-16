@@ -396,7 +396,7 @@ GameObject:
   - component: {fileID: 225584061}
   - component: {fileID: 225584063}
   - component: {fileID: 225584062}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20987,6 +20987,7 @@ MonoBehaviour:
   attackSpeed: 0.5
   score: 0
   bulletPrefab: {fileID: 6087141428959316712, guid: e299626466a7dd5428c216ac0937ac78, type: 3}
+  maxBuffTime: 15
 --- !u!212 &804023741
 SpriteRenderer:
   serializedVersion: 3
@@ -37469,6 +37470,7 @@ MonoBehaviour:
   objects:
   - {fileID: 6048143969230318026, guid: 893ed326dfdd59b42bf03fa1229ea4ed, type: 3}
   - {fileID: 695275722093703880, guid: cf1156d9769e50146815ca4f5ad35a2e, type: 3}
+  spawnRange: 15
   wantedAmount: 4
   spawnedObjectAmount: 0
 --- !u!1 &1445526619

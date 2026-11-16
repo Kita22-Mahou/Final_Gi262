@@ -12,6 +12,10 @@ public class Player : Character
     private Vector2 lastDir = Vector2.right;
     private float shootTimer;
 
+    private float buffTimeLeft = 0f;
+    private float buffAmount = 0f;
+    [SerializeField] private float maxBuffTime = 15f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -28,6 +32,17 @@ public class Player : Character
         {
             shootTimer = 0f;
             Shoot();
+        }
+
+        if (buffTimeLeft > 0f)
+        {
+            buffTimeLeft -= Time.deltaTime;
+            if (buffTimeLeft <= 0f)
+            {
+                buffTimeLeft = 0f;
+                attackSpeed += buffAmount;
+                buffAmount = 0f;
+            }
         }
     }
 
@@ -69,16 +84,14 @@ public class Player : Character
         Debug.Log("Heal! HP: " + currentHP);
     }
 
-    public void AddSpeed(int speedAmout, float duration)
+    public void AddSpeed(float speedAmout, float duration)
     {
-        StartCoroutine(AttackSpeedBuff(speedAmout, duration));
-    }
-
-    private IEnumerator AttackSpeedBuff(int speedAmout, float duration)
-    {
-        attackSpeed += speedAmout;
-        yield return new WaitForSeconds(duration);
-        attackSpeed -= speedAmout;
+        if (buffTimeLeft <= 0f)
+        {
+            buffAmount = speedAmout;
+            attackSpeed -= buffAmount;
+        }
+        buffTimeLeft = Mathf.Min(buffTimeLeft + duration, maxBuffTime);
     }
 
     public void AddScore(int amount)
