@@ -16,6 +16,11 @@ public class Player : Character
     private float buffAmount = 0f;
     [SerializeField] private float maxBuffTime = 15f;
 
+    [Header("Related to Item")]
+    public bool isPlayerLowHPGuaranteeDropped = true;
+    [SerializeField] private float guaranteeCooldown;
+    [SerializeField] private float time;
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,6 +30,7 @@ public class Player : Character
     void Update()
     {
         Movement();
+        GuaranteeHealDropChecker();
 
         // ยิงอัตโนมัติ
         shootTimer += Time.deltaTime;
@@ -104,5 +110,21 @@ public class Player : Character
     {
         Debug.Log("Game Over! Score: " + score);
         base.Die();
+    }
+
+    private void GuaranteeHealDropChecker()
+    {
+        if (time < guaranteeCooldown)
+        {
+            time += Time.deltaTime;
+            return;
+        }
+
+        if (currentHP < 20 && isPlayerLowHPGuaranteeDropped)
+        {
+            Debug.Log("Reset Cooldown");
+            isPlayerLowHPGuaranteeDropped = false;
+            time = 0;
+        }
     }
 }

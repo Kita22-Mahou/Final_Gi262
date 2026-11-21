@@ -3,8 +3,6 @@ using UnityEngine;
 public class Enemy : Character
 {
     [SerializeField] private string enemyName;
-    [SerializeField] private int[] items;              // index ของ item ที่ดรอปได้
-    [SerializeField] private GameObject[] itemPrefabs; // 0 = Heal, 1 = AttackSpeed
     [SerializeField] private int scoreValue = 10;
     [SerializeField] private float attackCooldown = 1f;
 
@@ -13,6 +11,10 @@ public class Enemy : Character
 
     private Transform target;
     private float attackTimer;
+
+    [Header("Item Setting")]
+    [SerializeField] private int[] items;              // index ของ item ที่ดรอปได้
+    [SerializeField] private GameObject[] itemPrefabs; // 0 = Heal, 1 = AttackSpeed
 
     void Start()
     {
@@ -58,6 +60,15 @@ public class Enemy : Character
         int roll = Random.Range(0, 100);
         int count = Mathf.Min(items.Length, itemPrefabs.Length);
         int cumulative = 0;
+
+        Player player = target.GetComponent<Player>();
+        if (player.CurrentHP <= 20 && !player.isPlayerLowHPGuaranteeDropped)
+        {
+            Debug.Log("LowHP Guarantee Dropped");
+            Instantiate(itemPrefabs[0], transform.position, Quaternion.identity);
+            target.GetComponent<Player>().isPlayerLowHPGuaranteeDropped = true;
+            return;
+        }
 
         for (int i = 0; i < count; i++)
         {

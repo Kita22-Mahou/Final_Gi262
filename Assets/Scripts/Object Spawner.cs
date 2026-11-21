@@ -1,12 +1,14 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class ObjectSpawner : MonoBehaviour
 {
     private Wave wave;
 
     [Header("Spawn Settings")]
+    [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private GameObject[] objects;
     [SerializeField] private int spawnRange = 15;
     [SerializeField] private int wantedAmount;
@@ -36,8 +38,26 @@ public class ObjectSpawner : MonoBehaviour
         // Spawn Object เมื่อ Wave หยุด
         if (wave.isWaveStopped && spawnedObjectAmount < wantedAmount)
         {
-            SpawnObject();
+            SpawnObjectNew();
         }
+    }
+
+    private void SpawnObjectNew()
+    {
+        int randomPoint = Random.Range(0, spawnPoints.Length);
+        Vector2 spawnPoint = new Vector2(spawnPoints[randomPoint].position.x , spawnPoints[randomPoint].position.y);
+
+        int objectVariant = Random.Range(0, objects.Length);
+
+        GameObject obj = Instantiate(
+            objects[objectVariant],
+            spawnPoint,
+            objects[objectVariant].transform.rotation,
+            transform.parent
+        );
+
+        spawnedObjects.Add(obj);
+        spawnedObjectAmount++;
     }
 
     private void SpawnObject()
